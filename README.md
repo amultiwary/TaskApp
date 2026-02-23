@@ -15,6 +15,7 @@ A task management app with user authentication, built with NestJS, React (Vite),
 ```bash
 cd backend
 npm install
+cp .env.example .env
 # Edit .env and fill in your MONGODB_URI and JWT_SECRET
 npm run start:dev
 ```
@@ -50,7 +51,10 @@ FRONTEND_URL=http://localhost:5173
 **Prompt 1** — Full stack scaffold:
 > "Generate a full-stack Task Management Portal using the MERN stack with the following constraints: Frontend in React with Vite, Backend in NestJS, Database in MongoDB via Mongoose. The application must include JWT-based user authentication (register + login), and support the following task features: create a task with title (required), description (optional), status (pending/completed), priority (low/medium/high), and due date; view all tasks in a list showing status, priority, and created date; toggle task status between pending and completed; filter tasks by All / Pending / Completed; and display a stats summary (total, pending, completed). Follow NestJS module structure best practices with separate modules for auth, users, and tasks. Use class-validator DTOs for request validation. Enforce task ownership so users can only access their own tasks."
 
-**Prompt 2** — Project documentation:
+**Prompt 2** — Cloud database configuration:
+> "Provide a step-by-step guide on how to configure MongoDB Atlas for this project, including cluster creation, database user setup, IP whitelisting, and how to obtain and integrate the connection string into the NestJS backend environment configuration."
+
+**Prompt 3** — Project documentation:
 > "Generate a clean and professional README.md for this project that includes the following sections: how to run the project locally, AI prompts used during development, a clear breakdown of what was AI-generated versus what was manually written or modified, a full API design reference with endpoints, request/response shapes and error codes, and an explanation of the state management architecture. Keep the language concise and straightforward."
 
 ---
@@ -131,8 +135,21 @@ All `/tasks` routes require `Authorization: Bearer <token>` header.
   "priority": "high",
   "dueDate": "2025-04-01"
 }
+```
 
-
+**Task object shape:**
+```json
+{
+  "_id": "...",
+  "title": "Fix login bug",
+  "description": "Optional details",
+  "status": "pending",
+  "priority": "high",
+  "dueDate": "2025-04-01T00:00:00.000Z",
+  "completedAt": null,
+  "createdAt": "2025-03-01T10:00:00.000Z",
+  "updatedAt": "2025-03-01T10:00:00.000Z"
+}
 ```
 
 **Error responses:**
